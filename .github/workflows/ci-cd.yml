@@ -63,7 +63,7 @@ jobs:
 
       # 4. Build the Docker images using Docker Compose
       - name: Build Docker images
-        run: docker-compose build
+        run: docker compose build
 
       # 5. A final step to confirm success
       - name: Build Success
