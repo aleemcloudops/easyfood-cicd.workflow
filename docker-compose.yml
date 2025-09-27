@@ -1,6 +1,8 @@
 services:
   backend:
     build: ./backend
+    # THIS LINE IS REQUIRED FOR PUSHING TO DOCKER HUB
+    image: yourdockerhubusername/easyfood-backend:latest
     container_name: easyfood-backend
     ports:
       - "5000:5000"
@@ -9,6 +11,8 @@ services:
 
   frontend:
     build: ./frontend
+    # THIS LINE IS REQUIRED FOR PUSHING TO DOCKER HUB
+    image: yourdockerhubusername/easyfood-frontend:latest
     container_name: easyfood-frontend
     ports:
       - "3000:80"
