@@ -61,10 +61,21 @@ jobs:
       #   working-directory: ./frontend
       #   run: npm test
 
-      # 4. Build the Docker images using Docker Compose
+      # 4. Log in to Docker Hub
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # 5. Build the Docker images using Docker Compose
       - name: Build Docker images
         run: docker compose build
 
-      # 5. A final step to confirm success
-      - name: Build Success
-        run: echo "Build and test process completed successfully!"
+      # 6. Push the Docker images to Docker Hub
+      - name: Push Docker images
+        run: docker compose push
+
+      # 7. A final step to confirm success
+      - name: Push Success
+        run: echo "Docker images pushed successfully!"
