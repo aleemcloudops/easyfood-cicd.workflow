@@ -1,0 +1,70 @@
+# This is a basic workflow to help you get started with Actions.
+name: CI Pipeline for Full Stack App
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build-and-test"
+  build-and-test:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # 1. Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Set up Python environment for the backend
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11' # You can specify the version you use
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r backend/requirements.txt
+      
+      # NOTE: Add a step here to run your actual backend tests if you have them.
+      # For example, using pytest:
+      # - name: Run Backend Tests
+      #   run: |
+      #     pip install pytest
+      #     pytest backend/
+
+      # 3. Set up Node.js environment for the frontend
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # You can specify the version you use
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install Node.js dependencies
+        working-directory: ./frontend
+        run: npm install
+
+      # NOTE: Add a step here to run your actual frontend tests if you have them.
+      # For example, using Jest or Vitest:
+      # - name: Run Frontend Tests
+      #   working-directory: ./frontend
+      #   run: npm test
+
+      # 4. Build the Docker images using Docker Compose
+      - name: Build Docker images
+        run: docker-compose build
+
+      # 5. A final step to confirm success
+      - name: Build Success
+        run: echo "Build and test process completed successfully!"

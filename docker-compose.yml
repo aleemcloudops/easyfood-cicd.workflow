@@ -1,0 +1,14 @@
+services:
+  backend:
+    build: ./backend
+    container_name: easyfood-backend
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend/easyfood.db:/app/easyfood.db
+
+  frontend:
+    build: ./frontend
+    container_name: easyfood-frontend
+    ports:
+      - "3000:80"

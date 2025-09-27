@@ -1,0 +1,14 @@
+{
+  "name": "easyfood-frontend",
+  "version": "1.0.0",
+  "description": "EasyFood - Food Ordering App Frontend",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 3000",
+    "dev": "python -m http.server 3000"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "author": "Your Name",
+  "license": "MIT"
+}
